@@ -6,7 +6,7 @@ A proposta deve apresentar uma ideia simples, clara e viável para ser desenvolv
 
 ## 1. Nome provisório do jogo
 
-Escreva aqui o nome provisório do jogo.
+Meteor Escape
 
 Exemplo:
 
@@ -16,8 +16,8 @@ Exemplo:
 
 Liste os integrantes do grupo.
 
-- Nome 1:
-- Nome 2:
+- Nome 1: Danilo Nadu
+- Nome 2: Francisco Berutti
 - Nome 3:
 - Nome 4:
 
@@ -42,7 +42,7 @@ Exemplos:
 
 Tipo escolhido pelo grupo:
 
-> Escreva aqui.
+Nave desviando de meteoros
 
 ## 4. Descrição geral do jogo
 
@@ -57,7 +57,7 @@ Procure responder:
 
 Descrição:
 
-> Escreva aqui.
+O jogador controla uma nave espacial e deve desviar dos meteoros que caem do topo da tela. A dificuldade aumenta com o tempo.
 
 ## 5. Objetivo do jogador
 
@@ -75,7 +75,7 @@ Exemplos:
 
 Objetivo:
 
-> Escreva aqui.
+Sobreviver o máximo possível e acumular pontos.
 
 ## 6. Regras principais
 
@@ -91,11 +91,11 @@ Exemplo:
 
 Regras do grupo:
 
-- Regra 1:
-- Regra 2:
-- Regra 3:
-- Regra 4:
-- Regra 5:
+- Regra 1: O jogador controla uma nave.
+- Regra 2: Meteoros caem aleatoriamente.
+- Regra 3: Desviar de meteoros gera pontos.
+- Regra 4: Colisões retiram vidas.
+- Regra 5: O jogo termina quando as vidas acabam.
 
 ## 7. Condição de vitória
 
@@ -111,7 +111,7 @@ Exemplos:
 
 Condição de vitória:
 
-> Escreva aqui.
+Alcançar 100 pontos.
 
 ## 8. Condição de derrota ou encerramento
 
@@ -127,7 +127,7 @@ Exemplos:
 
 Condição de derrota ou encerramento:
 
-> Escreva aqui.
+Perder todas as vidas.
 
 ## 9. Elementos previstos no jogo
 
@@ -141,7 +141,7 @@ Exemplo:
 
 Descrição:
 
-> Escreva aqui.
+Nave espacial controlada pelo jogador.
 
 ## Obstáculos, inimigos ou desafios
 
@@ -151,7 +151,7 @@ Exemplo:
 
 Descrição:
 
-> Escreva aqui.
+Meteoros que surgem aleatoriamente e devem ser evitados.
 
 ## Itens, alvos ou objetos de interação
 
@@ -161,7 +161,7 @@ Exemplo:
 
 Descrição:
 
-> Escreva aqui.
+Não haverá itens na versão inicial.
 
 ## Pontuação, vidas, tempo ou progresso
 
@@ -171,7 +171,7 @@ Exemplo:
 
 Descrição:
 
-> Escreva aqui.
+O jogador começa com 3 vidas e acumula pontos ao sobreviver.
 
 ## 10. Controles previstos
 
@@ -188,9 +188,9 @@ Exemplo:
 
 Controles do grupo:
 
-- Tecla/comando:
-- Tecla/comando:
-- Tecla/comando:
+- Tecla/comando: Seta para esquerda/ir pra esquerda
+- Tecla/comando: Seta pra direita/ir pra direita
+- Tecla/comando: ESC/sair
 
 ## 11. Organização inicial do código
 
@@ -206,7 +206,12 @@ Exemplo:
 
 Organização planejada:
 
-> Escreva aqui.
+main.py - inicia o jogo e chama as outras funções
+jogo.py - loop principal do jogo
+jogador.py - tudo relacionado à nave: posição, movimento e controles
+meteoro.py - criação, movimentação e remoção dos meteoros
+config.py - configurações como tamanho da tela, FPS, cores e velocidades
+dados.py - salvar e carregar recordes em arquivo
 
 
 ## 12. Recursos externos previstos
@@ -222,7 +227,7 @@ Exemplo:
 
 Recursos previstos:
 
-> Escreva aqui.
+Imagens e sons gratuitos, caso necessário.
 
 Caso não pretenda utilizar recursos externos, escreva:
 
@@ -245,9 +250,9 @@ Exemplos:
 
 Dificuldades previstas:
 
-- Dificuldade 1:
-- Dificuldade 2:
-- Dificuldade 3:
+- Dificuldade 1: Detecção de colisões
+- Dificuldade 2: Controle da dificuldade
+- Dificuldade 3: Salvamento de recordes
 
 ## 14. Escopo mínimo para a entrega final
 
@@ -261,7 +266,7 @@ Exemplo:
 
 Escopo mínimo:
 
-> Escreva aqui.
+Nave controlável, meteoros, colisão, vidas, pontuação e tela de fim de jogo.
 
 ## 15. Possíveis melhorias, caso haja tempo
 
@@ -281,6 +286,6 @@ Exemplos:
 
 Melhorias possíveis:
 
-- Melhoria 1:
-- Melhoria 2:
-- Melhoria 3:
+- Melhoria 1: Tela inicial
+- Melhoria 2: Sons
+- Melhoria 3: Ranking de pontuações
