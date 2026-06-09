@@ -1,142 +1,123 @@
 import pygame
+import random
 
 from src.config import (
-    LARGURA_TELA,
-    ALTURA_TELA,
-    FPS,
-    TITULO_JOGO,
-    CINZA,
-    CAMINHO_RECORDE,
-    CAMINHO_SPRITES,
+LARGURA_TELA,
+ALTURA_TELA,
+FPS,
+TITULO_JOGO,
+PRETO,
 )
-
-from src.funcoes import (
-    calcular_pontos,
-    jogador_perdeu,
-    limitar_valor,
-    verificar_colisao,
-    tomar_dano,
-)
-from src.sprites import pegar_sprite
-from src.dados import (
-    salvar_recorde,
-    carregar_recorde,
-)
-
 
 def executar_jogo():
-    """Executa o loop principal do jogo e controla estado, colisões e pontuação."""
+
     pygame.init()
-    
+
+    imagem_nave = pygame.image.load("assets/imagens/nave.png")
+    imagem_meteoro = pygame.image.load("assets/imagens/meteoro.png")
+    imagem_fundo = pygame.image.load("assets/imagens/fundo.png")
+
+    imagem_nave = pygame.transform.scale(imagem_nave, (50, 50))
+    imagem_meteoro = pygame.transform.scale(imagem_meteoro, (40, 40))
+    imagem_fundo = pygame.transform.scale(
+        imagem_fundo,
+        (LARGURA_TELA, ALTURA_TELA)
+    )
 
     tela = pygame.display.set_mode((LARGURA_TELA, ALTURA_TELA))
     pygame.display.set_caption(TITULO_JOGO)
 
     relogio = pygame.time.Clock()
+
+    nave = pygame.Rect(
+        LARGURA_TELA // 2 - 25,
+        ALTURA_TELA - 80,
+        50,
+        50
+    )
+
+    meteoros = []
+
+    pontos = 0
+
+    fonte = pygame.font.SysFont(None, 36)
+
     rodando = True
 
-    # 1. Carregando as imagens recortadas do Spritesheet
-
-
-    # Jogador: usando tamanho 110x110 para capturar o quadrado perfeitamente
-    player_image = pegar_sprite(CAMINHO_SPRITES, x=110, y=120, width=190, height=190, scale=0.5)
-
-    # Gema pequena: usando tamanho 64x64
-    gem_image    = pegar_sprite(CAMINHO_SPRITES, x=900, y=690, width=200, height=200, scale=0.5)
-
-    # Morcego: usando tamanho 180x120 por causa das asas abertas
-    bat_image    = pegar_sprite(CAMINHO_SPRITES, x=905, y=1060, width=200, height=130, scale=0.5)
-    
-    # 2. Criando a estrutura de Sprites usando Dicionários
-    jogador = {
-        "imagem": player_image,
-        "rect": player_image.get_rect(topleft=(100, 100))
-    }
-
-    gema = {
-        "imagem": gem_image,
-        "rect": gem_image.get_rect(topleft=(500, 300))
-    }
-    
-    inimigo = {
-        "imagem": bat_image,
-        "rect": bat_image.get_rect(topleft=(200, 500))
-    }
-
-    velocidade = 5
-    pontos = 0
-    vidas = 3
-    recorde = carregar_recorde(CAMINHO_RECORDE)
-
-    # Loop principal: processa entrada, atualiza estado e renderiza a cena.
     while rodando:
+
         relogio.tick(FPS)
 
         for evento in pygame.event.get():
+
             if evento.type == pygame.QUIT:
                 rodando = False
 
         teclas = pygame.key.get_pressed()
 
-        # Movimentação alterando direto os eixos X e Y do retângulo do jogador
         if teclas[pygame.K_LEFT]:
-            jogador["rect"].x -= velocidade
+            nave.x -= 6
+
         if teclas[pygame.K_RIGHT]:
-            jogador["rect"].x += velocidade
+            nave.x += 6
+
         if teclas[pygame.K_UP]:
-            jogador["rect"].y -= velocidade
+            nave.y -= 6
+
         if teclas[pygame.K_DOWN]:
-            jogador["rect"].y += velocidade
+            nave.y += 6
 
-        # Limitando o jogador dentro das bordas da tela usando as propriedades do Rect
-        jogador["rect"].x = limitar_valor(jogador["rect"].x, 0, LARGURA_TELA - jogador["rect"].width)
-        jogador["rect"].y = limitar_valor(jogador["rect"].y, 0, ALTURA_TELA - jogador["rect"].height)
+        if nave.top < 0:
+            nave.top = 0
 
-        # Verificação de colisão com a Gema (antigo 'item')
-        if verificar_colisao(jogador["rect"], gema["rect"]):
-            pontos = calcular_pontos(pontos, 10)
+        if nave.bottom > ALTURA_TELA:
+            nave.bottom = ALTURA_TELA
+            
+        if nave.left < 0:
+            nave.left = 0
 
-            # Move a gema de lugar ao coletar
-            gema["rect"].x += 80
-            gema["rect"].y += 50
+        if nave.right > LARGURA_TELA:
+            nave.right = LARGURA_TELA
 
-            # Se a gema sair da tela, volta para uma posição segura
-            if gema["rect"].x > LARGURA_TELA - gema["rect"].width:
-                gema["rect"].x = 50
-            if gema["rect"].y > ALTURA_TELA - gema["rect"].height:
-                gema["rect"].y = 50
+        if random.randint(1, 40) == 1:
 
-        # Verificação de colisão com o Inimigo
-        if verificar_colisao(jogador["rect"], inimigo["rect"]):
-            vidas = tomar_dano(vidas, 1)
+            meteoros.append(
+                pygame.Rect(
+                    random.randint(0, LARGURA_TELA - 30),
+                    0,
+                    30,
+                    30
+                )
+            )
 
-            # Afasta o inimigo ao colidir
-            inimigo["rect"].x += 80
-            inimigo["rect"].y += 50
+        for meteoro in meteoros[:]:
 
-            if inimigo["rect"].x > LARGURA_TELA - inimigo["rect"].width:
-                inimigo["rect"].x = 50
-            if inimigo["rect"].y > ALTURA_TELA - inimigo["rect"].height:
-                inimigo["rect"].y = 50
+            meteoro.y += 5
 
-        # Regras de fim de jogo e recorde
-        if jogador_perdeu(vidas):
-            rodando = False
+            if meteoro.y > ALTURA_TELA:
 
-        if pontos > recorde:
-            recorde = pontos
-            salvar_recorde(CAMINHO_RECORDE, recorde)
+                meteoros.remove(meteoro)
+                pontos += 1
 
-        pygame.display.set_caption(
-            f"{TITULO_JOGO} | Pontos: {pontos} | Recorde: {recorde} | Vidas: {vidas}"
+            elif nave.colliderect(meteoro):
+
+                rodando = False
+
+        tela.blit(imagem_fundo, (0, 0))
+
+        tela.blit(imagem_nave, nave)
+
+        for meteoro in meteoros:
+
+            tela.blit(imagem_meteoro, meteoro)
+
+        texto = fonte.render(
+            f"Pontos: {pontos}",
+            True,
+            (255, 255, 255)
         )
 
-        tela.fill(CINZA)
-
-        # Desenhando os elementos na tela passando a imagem e o rect de cada dicionário
-        tela.blit(gema["imagem"], gema["rect"])
-        tela.blit(inimigo["imagem"], inimigo["rect"])
-        tela.blit(jogador["imagem"], jogador["rect"])
+        tela.blit(texto, (10, 10))
 
         pygame.display.flip()
 
