@@ -18,8 +18,8 @@ Liste os integrantes do grupo.
 
 - Nome 1: Danilo Nadu
 - Nome 2: Francisco Berutti
-- Nome 3:
-- Nome 4:
+- Nome 3: Arthur Lopes de Paiva
+- Nome 4: Heitor Henrique Gonçalves
 
 ## 3. Tipo de jogo
 
