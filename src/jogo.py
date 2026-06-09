@@ -55,16 +55,16 @@ def executar_jogo():
 
         teclas = pygame.key.get_pressed()
 
-        if teclas[pygame.K_LEFT]:
+        if teclas[pygame.K_LEFT] or teclas[pygame.K_a]:
             nave.x -= 6
 
-        if teclas[pygame.K_RIGHT]:
+        if teclas[pygame.K_RIGHT] or teclas[pygame.K_d]:
             nave.x += 6
 
-        if teclas[pygame.K_UP]:
+        if teclas[pygame.K_UP] or teclas[pygame.K_w]:
             nave.y -= 6
 
-        if teclas[pygame.K_DOWN]:
+        if teclas[pygame.K_DOWN] or teclas[pygame.K_s]:
             nave.y += 6
 
         if nave.top < 0:
