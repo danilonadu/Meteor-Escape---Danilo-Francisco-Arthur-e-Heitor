@@ -1,5 +1,6 @@
 from src.funcoes import calcular_pontos, jogador_perdeu, limitar_valor
 
+from src.funcoes import tomar_dano
 
 def test_calcular_pontos():
     """Deve somar corretamente os pontos atuais com os pontos ganhos."""
@@ -29,3 +30,12 @@ def test_limitar_valor_acima_do_maximo():
 def test_limitar_valor_dentro_do_intervalo():
     """Deve manter o valor original quando ele ja estiver no intervalo."""
     assert limitar_valor(50, 0, 100) == 50
+
+def test_tomar_dano():
+    """Deve reduzir corretamente a quantidade de vidas."""
+    assert tomar_dano(3, 1) == 2
+
+
+def test_tomar_dano_ate_zero():
+    """Deve permitir que a vida chegue a zero."""
+    assert tomar_dano(1, 1) == 0

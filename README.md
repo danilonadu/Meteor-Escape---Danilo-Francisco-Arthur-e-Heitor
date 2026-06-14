@@ -6,10 +6,10 @@ Este repositório é um template para os grupos da disciplina. A proposta é com
 
 ## Integrantes do grupo
 
-- Nome do integrante 1
-- Nome do integrante 2
-- Nome do integrante 3
-- Nome do integrante 4
+- Danilo Amaral Nadu
+- Francisco Berutti
+- Heitor Henrique Gonçalves
+- Arthur Lopes de Paiva
 
 ## Estrutura do projeto
 
@@ -22,51 +22,53 @@ Este repositório é um template para os grupos da disciplina. A proposta é com
 
 ## Descrição do jogo
 
-Descreva brevemente a ideia principal do jogo.
+Meteor Escape é um jogo de sobrevivência em estilo retrô no qual o jogador controla uma nave espacial e deve
+desviar de meteoros que caem continuamente pela tela.
 
-Exemplo:
+O jogo possui dois modos de jogo:
 
-> O jogo consiste em controlar um personagem que deve coletar moedas e evitar obstáculos. O jogador ganha pontos ao coletar itens e perde vidas ao colidir com obstáculos. A partida termina quando o tempo acaba ou quando o jogador perde todas as vidas.
+- Modo Recorde: o objetivo é sobreviver o máximo possível e alcançar a maior pontuação.
+- Modo Vitória: o jogador deve sobreviver até atingir 50 pontos para vencer a partida.
+
+Além disso, o jogo conta com sistema de vidas, seleção de dificuldade, recorde persistente em arquivo, telas
+de vitória e derrota e interface inspirada em jogos clássicos de pixel art.
 
 ## Objetivo do jogador
 
-Explique o que o jogador precisa fazer para vencer ou avançar no jogo.
+Controlar a nave espacial evitando colisões com os meteoros.
 
-Exemplo:
+No modo Recorde, o objetivo é alcançar a maior pontuação possível antes de perder todas as vidas.
 
-> O objetivo é coletar a maior quantidade possível de itens antes que o tempo acabe, evitando colisões com os obstáculos.
+No modo Vitória, o objetivo é sobreviver até atingir 50 pontos.
 
 ## Regras do jogo
 
-Liste as principais regras do jogo.
-
-Exemplo:
-
-- O jogador se movimenta usando as setas do teclado.
-- Cada item coletado aumenta a pontuação.
-- Colidir com um obstáculo reduz a quantidade de vidas.
-- A partida termina quando o jogador perde todas as vidas ou quando o tempo acaba.
+- O jogador controla uma nave espacial.
+- Meteoros surgem aleatoriamente e caem em direção à nave.
+- Cada meteoro evitado aumenta a pontuação do jogador.
+- Colidir com um meteoro reduz uma vida.
+- O jogador inicia cada partida com 3 vidas.
+- Quando as vidas chegam a zero, ocorre o Game Over.
+- No modo Vitória, a partida termina quando o jogador alcança 50 pontos.
+- No modo Recorde, a partida continua até que todas as vidas sejam perdidas.
+- O recorde é salvo em arquivo e permanece armazenado entre diferentes execuções do jogo.
+- O jogador pode reiniciar a partida após uma vitória ou derrota.
 
 ## Controles
 
-Informe as teclas ou comandos utilizados no jogo.
-
-Exemplo:
-
-- Seta para cima: mover para cima
-- Seta para baixo: mover para baixo
-- Seta para esquerda: mover para esquerda
-- Seta para direita: mover para direita
-- Espaço: realizar ação
-- ESC: sair do jogo
+Movimentação
+- W ou Seta para cima: mover para cima
+- S ou Seta para baixo: mover para baixo
+- A ou Seta para esquerda: mover para esquerda
+ -D ou Seta para direita: mover para direita
 
 ## Como executar o projeto
 
 ### 1. Clonar o repositório
 
 ```bash
-git clone LINK_DO_REPOSITORIO
-cd NOME_DA_PASTA
+git clone https://github.com/danilonadu/Meteor-Escape---Danilo-Francisco-Arthur-e-Heitor.git
+cd C:\Users\l\Documents\PUC 2026\Introdução à Algoritmos\TP 01 Meteor Scape\Meteor-Escape---Danilo-Francisco-Arthur-e-Heitor
 pip install -r requirements.txt
 python main.py
 ```
