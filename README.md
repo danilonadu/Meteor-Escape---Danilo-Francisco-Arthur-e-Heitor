@@ -68,7 +68,7 @@ Movimentação
 
 ```bash
 git clone https://github.com/danilonadu/Meteor-Escape---Danilo-Francisco-Arthur-e-Heitor.git
-cd C:\Users\l\Documents\PUC 2026\Introdução à Algoritmos\TP 01 Meteor Scape\Meteor-Escape---Danilo-Francisco-Arthur-e-Heitor
+cd (caminho até a pasta)\Meteor-Escape---Danilo-Francisco-Arthur-e-Heitor
 pip install -r requirements.txt
 python main.py
 ```

@@ -317,25 +317,48 @@ def executar_jogo():
             (255, 255, 255)
         )
 
-        texto_recorde = fonte.render(
-            f"Recorde: {recorde}",
-            True,
-            (255, 255, 255)
-        )
-
         texto_vidas = fonte.render(
             f"Vidas: {vidas}",
             True,
             (255, 255, 255)
         )
 
-        tela.blit(texto_recorde, (10, 10))
+        tela.blit(texto_pontos, (10, 10))
 
         vidas_x = (LARGURA_TELA - texto_vidas.get_width()) // 2
         tela.blit(texto_vidas, (vidas_x, 10))
 
-        pontos_x = LARGURA_TELA - texto_pontos.get_width() - 10
-        tela.blit(texto_pontos, (pontos_x, 10))
+        if modo_jogo == "recorde":
+
+            texto_recorde = fonte.render(
+                f"Recorde: {recorde}",
+                True,
+                (255, 255, 255)
+            )
+
+            recorde_x = (
+                LARGURA_TELA
+                - texto_recorde.get_width()
+                - 10
+            )
+
+            tela.blit(texto_recorde, (recorde_x, 10))
+
+        else:
+
+            texto_meta = fonte.render(
+                "Meta: 50",
+                True,
+                (255, 255, 255)
+            )
+
+            meta_x = (
+                LARGURA_TELA
+                - texto_meta.get_width()
+                - 10
+            )
+
+            tela.blit(texto_meta, (meta_x, 10))
 
         pygame.display.flip()
 
