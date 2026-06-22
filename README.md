@@ -39,7 +39,7 @@ Controlar a nave espacial evitando colisões com os meteoros.
 
 No modo Recorde, o objetivo é alcançar a maior pontuação possível antes de perder todas as vidas.
 
-No modo Vitória, o objetivo é sobreviver até atingir 50 pontos.
+No modo Vitória, o objetivo é sobreviver até atingir 100 pontos.
 
 ## Regras do jogo
 
