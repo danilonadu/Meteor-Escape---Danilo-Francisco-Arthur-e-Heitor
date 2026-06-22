@@ -15,6 +15,8 @@ def executar_jogo():
 
     pygame.init()
 
+    pygame.mixer.init()
+
     fonte_titulo = pygame.font.Font(
         "assets/fontes/PressStart2P.ttf",
         32
@@ -32,6 +34,38 @@ def executar_jogo():
     imagem_meteoro = pygame.image.load("assets/imagens/meteoro.png")
     imagem_fundo = pygame.image.load("assets/imagens/fundo.png")
 
+    coracao_cheio = pygame.image.load(
+        "assets/imagens/Coracao Cheio.png"
+    )
+
+    coracao_vazio = pygame.image.load(
+        "assets/imagens/Coracao Vazio.png"
+    )
+
+    som_colisao = pygame.mixer.Sound(
+        "assets/sons/colisao.wav"
+    )
+
+    som_vitoria = pygame.mixer.Sound(
+        "assets/sons/vitoria.wav"
+    )
+
+    som_gameover = pygame.mixer.Sound(
+        "assets/sons/gameover.wav"
+    )
+
+    som_bip = pygame.mixer.Sound(
+        "assets/sons/bip.wav"
+    )
+
+    pygame.mixer.music.load(
+        "assets/sons/backgroundmusic.wav"
+    )
+
+    pygame.mixer.music.set_volume(0.3)
+
+    pygame.mixer.music.play(-1)
+
     imagem_nave = pygame.transform.scale(imagem_nave, (50, 50))
     imagem_nave_propulsao = pygame.transform.scale(
     imagem_nave_propulsao,
@@ -43,6 +77,16 @@ def executar_jogo():
         (LARGURA_TELA, ALTURA_TELA)
     )
 
+    coracao_cheio = pygame.transform.scale(
+        coracao_cheio,
+        (32, 32)
+    )
+
+    coracao_vazio = pygame.transform.scale(
+        coracao_vazio,
+        (32, 32)
+    )
+
     tela = pygame.display.set_mode((LARGURA_TELA, ALTURA_TELA))
     pygame.display.set_caption(TITULO_JOGO)
 
@@ -50,7 +94,7 @@ def executar_jogo():
     modo_escolhido = False
 
     dificuldade_escolhida = False
-    velocidade_meteoro = 6
+    velocidade_meteoro = 9
 
     while not modo_escolhido:
 
@@ -63,10 +107,12 @@ def executar_jogo():
             if evento.type == pygame.KEYDOWN:
 
                 if evento.key == pygame.K_1:
+                    som_bip.play()
                     modo_jogo = "recorde"
                     modo_escolhido = True
 
                 elif evento.key == pygame.K_2:
+                    som_bip.play()
                     modo_jogo = "vitoria"
                     modo_escolhido = True
 
@@ -129,14 +175,17 @@ def executar_jogo():
             if evento.type == pygame.KEYDOWN:
 
                 if evento.key == pygame.K_1:
-                    velocidade_meteoro = 4
-                    dificuldade_escolhida = True
-
-                elif evento.key == pygame.K_2:
+                    som_bip.play()
                     velocidade_meteoro = 6
                     dificuldade_escolhida = True
 
+                elif evento.key == pygame.K_2:
+                    som_bip.play()
+                    velocidade_meteoro = 9
+                    dificuldade_escolhida = True
+
                 elif evento.key == pygame.K_3:
+                    som_bip.play()
                     velocidade_meteoro = 12
                     dificuldade_escolhida = True
 
@@ -199,6 +248,16 @@ def executar_jogo():
 
         pygame.display.flip()
 
+    pygame.mixer.music.stop()
+
+    pygame.mixer.music.load(
+        "assets/sons/gameplaymusic.wav"
+    )
+
+    pygame.mixer.music.set_volume(0.2)
+
+    pygame.mixer.music.play(-1)
+
     relogio = pygame.time.Clock()
 
     nave = pygame.Rect(
@@ -259,7 +318,15 @@ def executar_jogo():
         if nave.right > LARGURA_TELA:
             nave.right = LARGURA_TELA
 
-        if random.randint(1, 40) == 1:
+        chance_spawn = 25
+
+        if velocidade_meteoro == 9:
+            chance_spawn = 15
+
+        elif velocidade_meteoro == 12:
+            chance_spawn = 8
+
+        if random.randint(1, chance_spawn) == 1:
 
             meteoros.append(
                 pygame.Rect(
@@ -280,23 +347,53 @@ def executar_jogo():
                 pontos += 1
 
             elif nave.colliderect(meteoro):
-
+                
+                som_colisao.play()
+                
                 meteoros.remove(meteoro)
 
                 vidas -= 1
 
                 if vidas <= 0:
+
+                    som_gameover.play()
+
+                    pygame.mixer.music.stop()
+
+                    pygame.mixer.music.load(
+                        "assets/sons/backgroundmusic.wav"
+                    )
+
+                    pygame.mixer.music.play(-1)
+
                     game_over = True
                     rodando = False
 
-        if pontos > recorde:
+        if modo_jogo == "recorde":
 
-            recorde = pontos
-            salvar_recorde("data/recorde.txt", recorde)
+            if pontos > recorde:
+
+                recorde = pontos
+
+                salvar_recorde(
+                    "data/recorde.txt",
+                    recorde
+                )
 
         if modo_jogo == "vitoria":
 
-            if pontos >= 50:
+            if pontos >= 100:
+
+                som_vitoria.play()
+
+                pygame.mixer.music.stop()
+
+                pygame.mixer.music.load(
+                    "assets/sons/backgroundmusic.wav"
+                )
+
+                pygame.mixer.music.play(-1)
+
                 vitoria = True
                 rodando = False
 
@@ -317,16 +414,33 @@ def executar_jogo():
             (255, 255, 255)
         )
 
-        texto_vidas = fonte.render(
-            f"Vidas: {vidas}",
-            True,
-            (255, 255, 255)
-        )
-
         tela.blit(texto_pontos, (10, 10))
 
-        vidas_x = (LARGURA_TELA - texto_vidas.get_width()) // 2
-        tela.blit(texto_vidas, (vidas_x, 10))
+        inicio_coracoes = (
+            LARGURA_TELA // 2
+        ) - 50
+
+        for i in range(3):
+
+            if i < vidas:
+
+                tela.blit(
+                    coracao_cheio,
+                    (
+                        inicio_coracoes + i * 35,
+                        5
+                    )
+                )
+
+            else:
+
+                tela.blit(
+                    coracao_vazio,
+                    (
+                        inicio_coracoes + i * 35,
+                        5
+                    )
+                )
 
         if modo_jogo == "recorde":
 
@@ -347,7 +461,7 @@ def executar_jogo():
         else:
 
             texto_meta = fonte.render(
-                "Meta: 50",
+                "Meta: 100",
                 True,
                 (255, 255, 255)
             )
@@ -373,6 +487,8 @@ def executar_jogo():
             if evento.type == pygame.KEYDOWN:
 
                 if evento.key == pygame.K_r:
+                    som_bip.play()
+                    pygame.time.delay(150)
                     executar_jogo()
                     return
 
@@ -423,6 +539,8 @@ def executar_jogo():
             if evento.type == pygame.KEYDOWN:
 
                 if evento.key == pygame.K_r:
+                    som_bip.play()
+                    pygame.time.delay(150)
                     executar_jogo()
                     return
 

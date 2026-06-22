@@ -28,7 +28,7 @@ desviar de meteoros que caem continuamente pela tela.
 O jogo possui dois modos de jogo:
 
 - Modo Recorde: o objetivo é sobreviver o máximo possível e alcançar a maior pontuação.
-- Modo Vitória: o jogador deve sobreviver até atingir 50 pontos para vencer a partida.
+- Modo Vitória: o jogador deve sobreviver até atingir 100 pontos para vencer a partida.
 
 Além disso, o jogo conta com sistema de vidas, seleção de dificuldade, recorde persistente em arquivo, telas
 de vitória e derrota e interface inspirada em jogos clássicos de pixel art.
@@ -91,3 +91,17 @@ python -m pytest
 - Mantenham o código organizado em módulos pequenos e com responsabilidade clara.
 - Comentem partes importantes da lógica, principalmente regras do jogo.
 - Registrem decisões técnicas no README do grupo ao longo do desenvolvimento.
+
+## Referências 
+
+### Fonte de texto
+
+* Press Start 2P — Google Fonts
+
+### Imagens
+
+* Imagens da nave, meteoros, fundo e interface desenvolvidas e adaptadas durante o projeto com auxílio de ferramentas de inteligência artificial e edição pelos integrantes do grupo.
+
+### Sons e músicas
+
+* Inserir as referências dos arquivos utilizados, caso sejam adicionados na versão final.
