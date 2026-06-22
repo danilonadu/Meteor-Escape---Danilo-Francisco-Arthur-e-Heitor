@@ -49,7 +49,7 @@ No modo Vitória, o objetivo é sobreviver até atingir 100 pontos.
 - Colidir com um meteoro reduz uma vida.
 - O jogador inicia cada partida com 3 vidas.
 - Quando as vidas chegam a zero, ocorre o Game Over.
-- No modo Vitória, a partida termina quando o jogador alcança 50 pontos.
+- No modo Vitória, a partida termina quando o jogador alcança 100 pontos.
 - No modo Recorde, a partida continua até que todas as vidas sejam perdidas.
 - O recorde é salvo em arquivo e permanece armazenado entre diferentes execuções do jogo.
 - O jogador pode reiniciar a partida após uma vitória ou derrota.
