@@ -13,20 +13,23 @@ from src.dados import carregar_recorde, salvar_recorde
 
 def executar_jogo():
 
+    #INICIAR JOGO
     pygame.init()
 
+    #INICIAR SONS
     pygame.mixer.init()
 
+    #COLOCAR FONTE NOS TEXTOS
     fonte_titulo = pygame.font.Font(
         "assets/fontes/PressStart2P.ttf",
         32
     )
-
     fonte_menu = pygame.font.Font(
         "assets/fontes/PressStart2P.ttf",
         16
     )
 
+    #CARREGAR IMAGENS
     imagem_nave = pygame.image.load("assets/imagens/nave.png")
     imagem_nave_propulsao = pygame.image.load(
     "assets/imagens/nave_propulsao.png"
@@ -42,6 +45,7 @@ def executar_jogo():
         "assets/imagens/Coracao Vazio.png"
     )
 
+    #CARREGAR SONS
     som_colisao = pygame.mixer.Sound(
         "assets/sons/colisao.wav"
     )
@@ -66,6 +70,7 @@ def executar_jogo():
 
     pygame.mixer.music.play(-1)
 
+    #TAMANHO DAS IMAGENS
     imagem_nave = pygame.transform.scale(imagem_nave, (50, 50))
     imagem_nave_propulsao = pygame.transform.scale(
     imagem_nave_propulsao,
@@ -96,6 +101,7 @@ def executar_jogo():
     dificuldade_escolhida = False
     velocidade_meteoro = 9
 
+    #LOOP DE SELEÇÃO DE MODO
     while not modo_escolhido:
 
         for evento in pygame.event.get():
@@ -164,6 +170,7 @@ def executar_jogo():
 
         pygame.display.flip()
 
+    #LOOP DE SELEÇÃO DE DIFICULDADE
     while not dificuldade_escolhida:
 
         for evento in pygame.event.get():
@@ -248,8 +255,10 @@ def executar_jogo():
 
         pygame.display.flip()
 
+    #MÚSICA DO MENU PARA
     pygame.mixer.music.stop()
 
+    #MÚSICA DE GAMEPLAY COMEÇA
     pygame.mixer.music.load(
         "assets/sons/gameplaymusic.wav"
     )
@@ -283,6 +292,7 @@ def executar_jogo():
     game_over = False
     vitoria = False
 
+    #LOOP PRINCIPAL
     while rodando:
 
         relogio.tick(FPS)
@@ -294,6 +304,7 @@ def executar_jogo():
 
         teclas = pygame.key.get_pressed()
 
+        #NAVE MOVIMENTAR QUANDO TECLAS PRESSIONADAS
         if teclas[pygame.K_LEFT] or teclas[pygame.K_a]:
             nave.x -= 6
 
@@ -318,6 +329,7 @@ def executar_jogo():
         if nave.right > LARGURA_TELA:
             nave.right = LARGURA_TELA
 
+        #INCIDENCIA DE METEOROS
         chance_spawn = 25
 
         if velocidade_meteoro == 9:
@@ -416,6 +428,7 @@ def executar_jogo():
 
         tela.blit(texto_pontos, (10, 10))
 
+        #CORAÇÕES CHEIOS E VAZIOS
         inicio_coracoes = (
             LARGURA_TELA // 2
         ) - 50
@@ -442,6 +455,7 @@ def executar_jogo():
                     )
                 )
 
+        #SE FOR NO MODO RECORDE, MOSTRA O TEXTO DE RECORDE
         if modo_jogo == "recorde":
 
             texto_recorde = fonte.render(
@@ -458,6 +472,7 @@ def executar_jogo():
 
             tela.blit(texto_recorde, (recorde_x, 10))
 
+        #SE FIR NO MODO VITÓRIA, MOSTRA O TEXTO DE META
         else:
 
             texto_meta = fonte.render(
@@ -476,6 +491,7 @@ def executar_jogo():
 
         pygame.display.flip()
 
+    #LOOP PRO GAME OVER (QUANDO PERDE)
     while game_over:
 
         for evento in pygame.event.get():
@@ -528,6 +544,8 @@ def executar_jogo():
         )
 
         pygame.display.flip()
+
+    #LOOP PRA VITÓRIA (QUANDO GANHA)
     while vitoria:
 
         for evento in pygame.event.get():
