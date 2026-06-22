@@ -472,7 +472,7 @@ def executar_jogo():
 
             tela.blit(texto_recorde, (recorde_x, 10))
 
-        #SE FIR NO MODO VITÓRIA, MOSTRA O TEXTO DE META
+        #SE FOR NO MODO VITÓRIA, MOSTRA O TEXTO DE META
         else:
 
             texto_meta = fonte.render(
